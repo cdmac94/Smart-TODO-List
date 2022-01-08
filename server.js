@@ -1,6 +1,13 @@
 // load .env data into process.env
 require("dotenv").config();
 
+// const config = {
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASS,
+//   database: process.env.DB_DATABASE,
+//   DB_PORT=5432
+// };
 // Web server config
 const PORT = process.env.PORT || 8080;
 const sassMiddleware = require("./lib/sass-middleware");
@@ -13,6 +20,21 @@ const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
 const db = new Pool(dbParams);
 db.connect();
+
+// .env
+// DB_HOST = localhost
+
+// DB_USER= labber
+
+// DB_PASS= labber
+
+// DB_NAME= midterm
+
+// DB_PORT=5432
+
+// PORT=8080
+
+
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
