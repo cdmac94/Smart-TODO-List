@@ -1,6 +1,6 @@
 -- Widgets table seeds here (Example)
 INSERT INTO categories (category_type)
-VALUES ('To watch');
+VALUES ('To watch'),
 ('To eat'),
 ('To read'),
 ('To buy');
