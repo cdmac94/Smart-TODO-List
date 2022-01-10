@@ -1,9 +1,9 @@
 -- Widgets table seeds here (Example)
-INSERT INTO categories (category_type)
-VALUES ('To watch');
+INSERT INTO categories (category_type) VALUES ('To watch');
 INSERT INTO categories (category_type) VALUES ('To eat');
 INSERT INTO categories (category_type) VALUES ('To read');
 INSERT INTO categories (category_type) VALUES ('To buy');
+
 
 
 INSERT INTO items (user_id, category_id, title) VALUES (1, 2, 'Bao');

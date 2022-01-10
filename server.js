@@ -7,6 +7,17 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const login = require("./routes/login");
+const logout = require("./routes/logout");
+const edit = require("./routes/edit");
+const userProfile = require ("./routes/userProfile");
+const books = require("./routes/books");
+const cookieSession = require('cookie-session');
+app.use(cookieSession({
+  name: 'session',
+  keys: ['someValue'],
+}));
+
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -43,10 +54,17 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
+
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
+app.use('/login', login(db));
+app.use('/logout', logout());
+app.use('/edit', edit(db));
+app.use('userProfile', userProfile(db));
+app.use('/books', books(db));
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -54,9 +72,17 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
-  res.render("index");
+  const templateVars = {
+    username: req.session.username
+  }
+  res.render("index", templateVars);
 });
+app.post("/login", (req,res) => {
+  const email = req
+})
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+
