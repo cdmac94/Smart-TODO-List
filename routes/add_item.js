@@ -1,7 +1,29 @@
 // Code to categorize item using google api
 //Will return with item.category_id
 
+//check movie data base
 
+const axios = require("axios").default;
+
+
+const categorize = function (userInput) {
+  const options = {
+    method: 'GET',
+    url: 'https://movie-database-imdb-alternative.p.rapidapi.com/',
+    params: {s: userInput, r: 'json', page: '1'},
+    headers: {
+      'x-rapidapi-host': 'movie-database-imdb-alternative.p.rapidapi.com',
+      'x-rapidapi-key': '65d46fecb8msh6f2a611a7f6519fp153fbfjsne359fb8aa45a'
+    }
+  };
+
+  axios.request(options).then(function (response) {
+    console.log(response.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
+
+}
 
 
 /**
