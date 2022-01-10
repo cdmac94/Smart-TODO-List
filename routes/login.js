@@ -8,11 +8,11 @@ const login = (db) => {
     console.log("login successful")
     db.query('SELECT * FROM users;')
     .then((response) => {
-      console.log("something here", response)
+
       res.json(response.rows);
 
     });
-    console.log("this didnt break anything")
+   
   });
 
   //GEt/login/:id

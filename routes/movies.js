@@ -1,20 +1,21 @@
-const express = require('express');
+const express =  require('express');
 const router = express.Router();
 
-const edit = (db) => {
-  // GET /login
+
+
+const movies = (db) => {
+  // GET /movies
   router.get ('/', (req, res) => {
     console.log("login successful")
-    db.query('SELECT * FROM users;')
+    db.query('SELECT * FROM items;')
     .then((response) => {
 
       res.json(response.rows);
-
     });
-  
+    
   });
 
-  //GEt/login/:id
+  //GEt/movies/:id
   router.get('/:id', (req, res) => {
     db.query('SELECT * FROM posts WHERE id = $1;', [req.params.id])
     .then((response) => {
@@ -26,4 +27,4 @@ const edit = (db) => {
 
 }
 
-module.exports = edit;
+module.exports = movies;

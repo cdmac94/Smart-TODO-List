@@ -3,16 +3,16 @@ const router  = express.Router();
 
 
 const userProfile = (db) => {
-  // GET /login
+  // GET /profile
   router.get ('/userProfile', (req, res) => {
     console.log("login successful")
     db.query('SELECT * FROM users;')
     .then((response) => {
-      console.log("something here", response)
+
       res.json(response.rows);
 
     });
-    console.log("this didnt break anything")
+
   });
 
   //GEt/login/:id
