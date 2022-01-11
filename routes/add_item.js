@@ -7,24 +7,52 @@ const axios = require("axios").default;
 
 
 const categorize = function (userInput) {
-  const options = {
-    method: 'GET',
-    url: 'https://movie-database-imdb-alternative.p.rapidapi.com/',
-    params: {s: userInput, r: 'json', page: '1'},
-    headers: {
-      'x-rapidapi-host': 'movie-database-imdb-alternative.p.rapidapi.com',
-      'x-rapidapi-key': '65d46fecb8msh6f2a611a7f6519fp153fbfjsne359fb8aa45a'
-    }
-  };
 
-  axios.request(options).then(function (response) {
-    console.log(response.data);
-  }).catch(function (error) {
-    console.error(error);
-  });
+    //Going to lowercase the entie string to make for easy checking.
+    const lowerCaseInput = userInput.toLowerCase();
+    let category = null;
+    if (
+      lowerCaseInput.includes("eat") ||
+      lowerCaseInput.includes("food") ||
+      lowerCaseInput.includes("dish") ||
+      lowerCaseInput.includes("recipe") ||
+      lowerCaseInput.includes("meat") ||
+      lowerCaseInput.includes("vegetable") ||
+      lowerCaseInput.includes("fruit") ||
+      lowerCaseInput.includes("dairy") ||
+      lowerCaseInput.includes('restaurant')
+    ) {
+      category = "eat";
+    } else if (
+      lowerCaseInput.includes("watch") ||
+      lowerCaseInput.includes("movie") ||
+      lowerCaseInput.includes("film") ||
+      lowerCaseInput.includes("tv")
+    ) {
+      category = "watch";
+    } else if (
+      lowerCaseInput.includes("read") ||
+      lowerCaseInput.includes("book") ||
+      lowerCaseInput.includes("journal") ||
+      lowerCaseInput.includes('novel') ||
+      lowerCaseInput.includes('textbooks')
+    ) {
+      category = "read";
+    } else if (
+      lowerCaseInput.includes("buy") ||
+      lowerCaseInput.includes("store") ||
+      lowerCaseInput.includes("retail") ||
+      lowerCaseInput.includes("grocer") ||
+      lowerCaseInput.includes("purchase")
+    ) {
+      category = "buy";
+    } else {
 
-}
+  }
 
+
+
+categorize();
 
 /**
  * Add a property to the database
