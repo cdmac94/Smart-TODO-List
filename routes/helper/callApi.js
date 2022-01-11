@@ -56,7 +56,7 @@ const wolframAlpha = (taskString) => {
     .then((response) => {
       const obj = convert.xml2json(response);
       const JSONobj = JSON.parse(obj);
-      //console.log("wolfram working", JSONobj.elements[0].attributes.datatypes);
+      console.log("wolfram working", JSONobj.elements[0].attributes.datatypes);
       //console.log("type", typeof JSONobj.elements[0].attributes.datatypes);
       let result = JSONobj.elements[0].attributes.datatypes;
       console.log(categorizeTask(result));
