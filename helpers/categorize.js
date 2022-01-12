@@ -1,89 +1,48 @@
-// Code to categorize item using google api
 //Will return with item.category_id
 
-//check movie data base
-const DDG = require('./DDG-call').checkDuckDuckGoAPI
 
+const categorize = function (input) {
 
-const categorize = function (userInput) {
-  console.log(data);
-    const lowerCaseInput = data.toLowerCase();
-    let category = null;
-    if (
-      lowerCaseInput.includes("eat") ||
-      lowerCaseInput.includes("food") ||
-      lowerCaseInput.includes("dish") ||
-      lowerCaseInput.includes("recipe") ||
-      lowerCaseInput.includes("meat") ||
-      lowerCaseInput.includes("vegetable") ||
-      lowerCaseInput.includes("fruit") ||
-      lowerCaseInput.includes("dairy") ||
-      lowerCaseInput.includes('cuisine')
-    ) {
+  // console.log("input:", input)
+  if (typeof input !== "string"){
+    input = input.toString();
+  }
+  const lowerCaseInput = input.toLowerCase();
+
+  const eat = ["eat", "food", "dish", "recipe", "meat", "vegetable", "fruit", "dairy", "cuisine"];
+  const watch = ["watch", "movie", "film", "tv", "series"];
+  const read = ["read", "book", "journal", "novel", "textbooks"];
+  const buy = ["buy", "store", "retail", "grocer", "purchase"];
+
+  let category = null;
+
+  for (let labels in eat) {
+    if (lowerCaseInput.includes(eat[labels])){
       category = "eat";
-    } else if (
-      lowerCaseInput.includes("watch") ||
-      lowerCaseInput.includes("movie") ||
-      lowerCaseInput.includes("film") ||
-      lowerCaseInput.includes("tv")
-    ) {
+    };
+  };
+
+  for (let labels in watch) {
+    if (lowerCaseInput.includes(watch[labels])) {
       category = "watch";
-    } else if (
-      lowerCaseInput.includes("read") ||
-      lowerCaseInput.includes("book") ||
-      lowerCaseInput.includes("journal") ||
-      lowerCaseInput.includes('novel') ||
-      lowerCaseInput.includes('textbooks')
-    ) {
-      category = "read";
-    } else if (
-      lowerCaseInput.includes("buy") ||
-      lowerCaseInput.includes("store") ||
-      lowerCaseInput.includes("retail") ||
-      lowerCaseInput.includes("grocer") ||
-      lowerCaseInput.includes("purchase")
-    ) {
-      category = "buy";
     }
-    console.log(category)
+  };
+
+  for (let labels in read) {
+    if (lowerCaseInput.includes(read[labels])) {
+      category = "read";
+    }
+  };
+
+  for (let labels in buy) {
+    if (lowerCaseInput.includes(buy[labels])) {
+      category = "watch";
+    }
+  };
+  // console.log("cat:", category);
+  return category;
 };
 
-categorize('Bao')
+categorize(process.argv[2]);
 
-
-/**
- * Add a property to the database
- * @param {{}} property An object containing all of the property details.
- * @return {Promise<{}>} A promise to the property.
- */
-
-const addItem = function(item) {
-
-  const addItemQuery = `
-    INSERT INTO items (user_id, category_id, title, date_created, active)
-    VALUES ($1, $2, $3, $4, $5) RETURNING *;
-    `;
-
-  const userInput = [
-    item.user_id,
-    item.category_id,
-    item.title,
-    item.date_created,
-    item.active,
-  ];
-
-  return pool
-    .query(addItemQuery, userInput)
-    .then(results => {
-      if (results.rows) {
-        return results.rows[0];
-      } else {
-        return null;
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
-
-exports.addItem = addItem;
+module.exports = { categorize };
