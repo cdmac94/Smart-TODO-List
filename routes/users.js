@@ -7,7 +7,10 @@
 
 const express = require('express');
 const router  = express.Router();
+const addUser = require('.helpers/user_register');
+const
 
+//GET info of current users
 module.exports = (db) => {
   router.get("/", (req, res) => {
     db.query(`SELECT * FROM users WHERE id = $1;`, )
@@ -23,3 +26,8 @@ module.exports = (db) => {
   });
   return router;
 };
+
+//POST - route for register new user -> i.e add user
+//front-end needs to create a signup button
+
+
