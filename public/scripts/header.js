@@ -45,7 +45,7 @@ $(() => {
     updateHeader(json.user);
   });
 
-  $("header").on("click", '.my_reservations_button', function() {
+  $("header").on("click", '.my_tasks_button', function() {
     propertyListings.clearListings();
     getAllReservations()
       .then(function(json) {
@@ -77,10 +77,10 @@ $(() => {
   });
 
   $("header").on('click', '.login_button', () => {
-    views_manager.show('logIn');
+    app.show('logIn');
   });
   $("header").on('click', '.sign-up_button', () => {
-    views_manager.show('signUp');
+    app.show('signUp');
   });
   $("header").on('click', '.logout_button', () => {
     logOut().then(() => {
@@ -88,7 +88,7 @@ $(() => {
     });
   });
 
-  $('header').on('click', '.create_listing_button', function() {
+  $('header').on('click', '.new_task_button', function() {
     views_manager.show('newProperty');
   });
 
