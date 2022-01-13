@@ -33,7 +33,7 @@ module.exports = (db) => {
         req.session.userId = user.id;
         res.send({ id: user.id, name: user.name, email: user.email });
       })
-      .catch(e => res.send(e));
+      .catch(error => res.send(error));
 
   });
 
