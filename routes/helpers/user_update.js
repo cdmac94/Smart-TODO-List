@@ -1,5 +1,5 @@
 //update users
-const updateUser = function (user_id, input, db) {
+const updateUser = function(user_id, input, db) {
 
   let queryValues = [];
   let valuesToUpdate = ['name', 'email', 'password'];
