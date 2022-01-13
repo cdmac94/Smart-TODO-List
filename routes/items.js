@@ -30,7 +30,7 @@ module.exports = (db) => {
   //GET - users' tasks (note that we want to present them under different categories)
 
   // Get all from list
-  router.get("/", (req, res) => {
+  router.get("/:id/allItems", (req, res) => {
     const userId = req.session.id;
     db.query(`SELECT * FROM items WHERE id = $1;`,[userId])
       .then(data => {
@@ -145,24 +145,3 @@ module.exports = (db) => {
 
   return router;
 };
-
-/*
-module.exports = (db) => {
-
-  router.get("/", (req, res) => {
-    let query = `SELECT * FROM widgets`;
-    console.log(query);
-    db.query(query)
-      .then(data => {
-        const widgets = data.rows;
-        res.json({ widgets });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
-  return router;
-};
-*/

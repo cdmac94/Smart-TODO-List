@@ -18,22 +18,15 @@ $(() => {
 
   window.$newTaskForm = $newTaskForm;
 
-  $newPropertyForm.addressfield({
-    json: 'javascript/libraries/addressfield/addressfield.min.json',
-    fields: {
-      task:'#new_task_form',
-    }
-  });
-
   $newTaskorm.on('submit', function (event) {
     event.preventDefault();
 
     views_manager.show('none');
 
     const data = $(this).serialize();
-    submitProperty(data)
+    addTask(data)
     .then(() => {
-      views_manager.show('listings');
+      views_manager.show('tasklist');
     })
     .catch((error) => {
       console.error(error);

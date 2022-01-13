@@ -1,7 +1,7 @@
 const request = require('request-promise');
 const categorize = require('./categorize').categorize
 
-const checkDuckDuckGoAPI = async (taskString) => {
+const checkDuckDuckGoAPI = async function(taskString) {
   const queryString = taskString.split(' ').join('+');
 
   try {
@@ -15,7 +15,7 @@ const checkDuckDuckGoAPI = async (taskString) => {
 };
 
 
-checkDuckDuckGoAPI(process.argv[2]);
+
 
 
 module.exports = { checkDuckDuckGoAPI }

@@ -11,9 +11,10 @@ $(() => {
     if (!user) {
       userLinks = `
       <nav id="page-header__user-links" class="page-header__user-links">
+      <div>
+      */ Logo/ title
+      </div>
         <ul>
-          <li class="home">🏠</li>
-          <li class="search_button">Search</li>
           <li class="login_button">Log In</li>
           <li class="sign-up_button">Sign Up</li>
         </ul>
@@ -23,12 +24,16 @@ $(() => {
       userLinks = `
       <nav id="page-header__user-links" class="page-header__user-links">
         <ul>
-          <li class="home">🏠</li>
-          <li class="search_button">Search</li>
-          <li>${user.name}</li>
-          <li class="create_listing_button">Create Listing</li>
-          <li class="my_listing_button">My Listings</li>
-          <li class="my_reservations_button">My Reservations</li>
+          <div>
+          */ Logo/ title
+          </div>
+          <li class="create_task_button">Create Task</li>
+          <li class="my_task_button" id="all">All Tasks</li>
+          <li class="my_task_button" id="to_eat">To Eat</li>
+          <li class="my_task_button" id="to_watch">To Watch</li>
+          <li class="my_task_button" id="to_read">To Read</li>
+          <li class="my_task_button" id="to_buy">To Buy</li>
+
           <li class="logout_button">Log Out</li>
         </ul>
       </nav>
@@ -41,39 +46,58 @@ $(() => {
   window.header.update = updateHeader;
 
   getMyDetails()
-    .then(function( json ) {
-    updateHeader(json.user);
+    .then(function (json) {
+      updateHeader(json.user);
+    });
+
+  $("header").on("click", '#all', function () {
+    taks_list.clearListings();
+    getAllTasks()
+      .then(function (json) {
+        propertyListings.addProperties(json.reservations, true);
+        views_manager.show('task');
+      })
+      .catch(error => console.error(error));
   });
 
-  $("header").on("click", '.my_tasks_button', function() {
-    propertyListings.clearListings();
-    getAllReservations()
-      .then(function(json) {
+  $("header").on("click", '#to_buy', function () {
+    task_list.clearListings();
+    getBuyList(user.id)
+      .then(function (json) {
         propertyListings.addProperties(json.reservations, true);
         views_manager.show('listings');
       })
       .catch(error => console.error(error));
   });
-  $("header").on("click", '.my_listing_button', function() {
-    propertyListings.clearListings();
-    getAllListings(`owner_id=${currentUser.id}`)
-      .then(function(json) {
-        propertyListings.addProperties(json.properties);
+
+  $("header").on("click", '#to_eat', function () {
+    task_list.clearListings();
+    getEatList()
+      .then(function (json) {
+        propertyListings.addProperties(json.reservations, true);
         views_manager.show('listings');
-    });
+      })
+      .catch(error => console.error(error));
   });
 
-  $("header").on("click", '.home', function() {
-    propertyListings.clearListings();
-    getAllListings()
-      .then(function(json) {
-        propertyListings.addProperties(json.properties);
+  $("header").on("click", '#to_watch', function () {
+    task_list.clearListings();
+    getWatchList()
+      .then(function (json) {
+        propertyListings.addProperties(json.reservations, true);
         views_manager.show('listings');
-    });
+      })
+      .catch(error => console.error(error));
   });
 
-  $('header').on('click', '.search_button', function() {
-    views_manager.show('searchProperty');
+  $("header").on("click", '#to_read', function () {
+    task_list.clearListings();
+    getReadList()
+      .then(function (json) {
+        propertyListings.addProperties(json.reservations, true);
+        views_manager.show('listings');
+      })
+      .catch(error => console.error(error));
   });
 
   $("header").on('click', '.login_button', () => {
@@ -88,8 +112,8 @@ $(() => {
     });
   });
 
-  $('header').on('click', '.new_task_button', function() {
-    views_manager.show('newProperty');
+  $('header').on('click', '.new_task_button', function () {
+    views_manager.show('newTask');
   });
 
 });
