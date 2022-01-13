@@ -8,8 +8,8 @@
 const express = require('express');
 const router  = express.Router();
 const bcrypt = require('bcrypt');
-const addUser = require('.helpers/user_register');
-const updateUser = require('.helpers/user_update');
+const addUser = require('./helpers/user_register');
+const updateUser = require('./helpers/user_update');
 
 module.exports = (db) => {
 
@@ -29,7 +29,7 @@ module.exports = (db) => {
   });
 
   //registering user
-  router.post("/addUser", (req, res) => {
+  router.post("/newUser", (req, res) => {
     const user = req.body;
     user.password = bcrypt.hashSync(user.password, 12);
     addUser(user, db)
@@ -56,6 +56,22 @@ module.exports = (db) => {
 
   });
 
+
+router.get("/me", (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      res.send({message: "not logged in"});
+      return;
+    }
+    db.getUserWithId(userId)
+      .then(user => {
+        if (!user) {
+          res.send({error: "no user with that id"});
+          return;
+        }        res.send({user: {name: user.name, email: user.email, id: userId}});
+      })
+      .catch(e => res.send(e));
+  });
   return router;
 };
 

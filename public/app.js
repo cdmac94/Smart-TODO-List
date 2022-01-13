@@ -5,21 +5,17 @@ $(() => {
   window.views_manager = {};
 
   window.views_manager.show = function(item) {
-    $newPropertyForm.detach();
-    $propertyListings.detach();
-    $searchPropertyForm.detach();
+    $newTaskForm.detach();
+    $Tasks.detach();
     $logInForm.detach();
     $signUpForm.detach();
 
     switch (item) {
-      case 'listings':
-        $propertyListings.appendTo($main);
+      case 'tasks':
+        $Tasks.appendTo($main);
         break;
       case 'newProperty':
-        $newPropertyForm.appendTo($main);
-        break;
-      case 'searchProperty':
-        $searchPropertyForm.appendTo($main);
+        $newTaskForm.appendTo($main);
         break;
       case 'logIn':
         $logInForm.appendTo($main);
@@ -32,7 +28,7 @@ $(() => {
         $error.appendTo('body');
         setTimeout(() => {
           $error.remove();
-          views_manager.show('listings');
+          views_manager.show('tasks');
         }, 2000);
 
         break;
