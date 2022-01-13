@@ -1,5 +1,5 @@
 //update users
-const updateUser = function(user_id, input, db) {
+const updateUser = function(userId, input, db) {
 
   let queryValues = [];
   let valuesToUpdate = ['name', 'email', 'password'];
@@ -16,7 +16,7 @@ const updateUser = function(user_id, input, db) {
     }
   }
 
-  queryValues.push(user_id);
+  queryValues.push(userId);
   query += `WHERE id = $${queryValues.length};`;
 
   return db.query(query, queryValues)
