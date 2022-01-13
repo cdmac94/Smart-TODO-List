@@ -15,16 +15,27 @@ module.exports = (db) => {
     res.redirect('/');
   });
 
-  //GEt/login/:id
+  //Get/login/:id
   router.get('/:id', (req, res) => {
-    req.session.user_id = req.params.id;
-    res
-    db.query('SELECT * FROM posts WHERE id = $1;', [req.params.id])
-      .then((response) => {
-        res.json(response.rows[0]);
-      })
-  })
+    req.session.userId = req.params.id;
+    res.redirect('/');
+  });
 
+  //use info filled within the form to perfor the login function for the specified user
+  router.post('/', (req, res) => {
+    const { email, password } = req.body;
+    userLogin(email, password, db)
+      .then(user => {
+        if (!user) {
+          res.send({ error: "error" });
+          return;
+        }
+        req.session.userId = user.id;
+        res.send({ id: user.id, name: user.name, email: user.email });
+      })
+      .catch(error => res.send(error));
+
+  });
 
   return router;
 };

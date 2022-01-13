@@ -8,7 +8,7 @@ const completeItem = function(userID, itemID, db) {
     AND user_id = $2
     RETURNING *`;
 
-  let queryValues = [itemID, userID,];
+  let queryValues = [itemID, userID];
 
   return db.query(query, queryValues)
     .then(res => res.rows[0])
