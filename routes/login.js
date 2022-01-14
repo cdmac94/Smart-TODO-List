@@ -15,6 +15,8 @@ module.exports = (db) => {
     res.redirect('/');
   });
 
+  //use info filled within the form to perfor the login function for the specified user
+
   //Get/login/:id
   router.get('/:id', (req, res) => {
     req.session.userId = req.params.id;
@@ -22,6 +24,7 @@ module.exports = (db) => {
   });
 
   //use info filled within the form to perform the login function for the specified user
+
   router.post('/', (req, res) => {
     const { email, password } = req.body;
     userLogin(email, password, db)

@@ -37,6 +37,5 @@ const categoryDecide = async function(taskString) {
   console.log("output:", output);
 };
 
-
-
 module.exports = { categoryDecide };
+
