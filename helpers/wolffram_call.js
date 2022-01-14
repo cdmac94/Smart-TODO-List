@@ -20,6 +20,5 @@ const wolframAlphaApi = async (taskString) => {
   }
 };
 
-// wolframAlphaApi(process.argv[2]);
 
 module.exports = { wolframAlphaApi };

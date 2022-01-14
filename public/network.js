@@ -61,4 +61,3 @@ const submitProperty = function(data) {
     url: "/api/task",
     data,
   });
-};

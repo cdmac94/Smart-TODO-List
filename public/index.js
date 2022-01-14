@@ -1,6 +1,6 @@
 $(() => {
   getAllListings().then(function( json ) {
-    propertyListings.addProperties(json.properties);
-    views_manager.show('listings');
+    task_list.addProperties(json.properties);
+    views_manager.show('tasks');
   });
 });

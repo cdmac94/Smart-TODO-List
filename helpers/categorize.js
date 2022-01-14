@@ -39,10 +39,11 @@ const categorize = function (input) {
       category = "watch";
     }
   };
-  // console.log("cat:", category);
+   //console.log("cat:", category);
   return category;
 };
 
-// categorize(process.argv[2]);
 
 module.exports = { categorize };
+
+
