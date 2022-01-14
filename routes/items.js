@@ -9,22 +9,22 @@ const express = require('express');
 const router  = express.Router();
 
 //auto categorize with APIs
-const  categoryDecide  = require('../helpers/Finalchoice');
+const  { categoryDecide }  = require('../helpers/Finalchoice');
 //helper functions
 //receive current list
-const getBuyList = require('./helpers/get_buy');
-const getEatList = require('./helpers/get_eat');
-const getReadList = require('./helpers/get_read');
-const getWatchList = require('./helpers/get_watch');
-const getDoneList = require('./helpers/get_completed');
+const { getBuyList } = require('./helpers/get_buy');
+const { getEatList } = require('./helpers/get_eat');
+const { getReadList } = require('./helpers/get_read');
+const { getWatchList } = require('./helpers/get_watch');
+const { getDoneList } = require('./helpers/get_completed');
 //add new task
-const addItem = require('./helpers/add_item');
+const { addItem } = require('./helpers/add_item');
 //update category of existing task
-const updateItemCat = require('./helpers/update_item_category');
+const { updateItemCat } = require('./helpers/update_item_category');
 //delete task
-const deleteItem = require('./helpers/delete_item');
+const { deleteItem } = require('./helpers/delete_item');
 //completed/archive task
-const completeItem = require('./helpers/complete_item');
+const { completeItem } = require('./helpers/complete_item');
 
 module.exports = (db) => {
   //GET - users' tasks (note that we want to present them under different categories)
@@ -32,12 +32,12 @@ module.exports = (db) => {
   // Get all from list
   router.get("/:id/allItems", (req, res) => {
     const userId = req.session.id;
-    db.query(`SELECT * FROM items WHERE id = $1;`,[userId])
+    db.query(`SELECT * FROM items WHERE id = $1;`, [userId])
       .then(data => {
         const items = data.rows;
         res.json({ items });
-        res.render('index')
-            })
+        res.render('index');
+      })
       .catch(err => {
         res
           .status(500)

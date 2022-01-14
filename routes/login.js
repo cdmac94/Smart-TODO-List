@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router = express.Router();
-const userLogin = require('./helpers/user_login');
+const { userLogin } = require('./helpers/user_login');
 
 module.exports = (db) => {
   // GET /login
@@ -19,14 +19,17 @@ module.exports = (db) => {
 
   router.post('/', (req, res) => {
     const { email, password } = req.body;
+    console.log(userLogin);
     userLogin(email, password, db)
       .then(user => {
+        console.log(user);
         if (!user) {
           res.send({ error: "error" });
           return;
         }
+        //set the user information into your routes
         req.session.userId = user.id;
-        res.send({ id: user.id, name: user.name, email: user.email });
+        return res.redirect("/");
       })
       .catch(error => res.send(error));
   });
