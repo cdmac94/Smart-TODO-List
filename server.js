@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const morgan = require("morgan");
 const sassMiddleware = require("./lib/sass-middleware");
-//const cookieSession = require('cookie-session');
+const cookieSession = require('cookie-session');
 
 //const login = require("./routes/login");
 //const logout = require("./routes/logout");
@@ -16,11 +16,13 @@ const sassMiddleware = require("./lib/sass-middleware");
 //const userProfile = require"./routes/userProfile");
 //const books = require("./routes/books");
 /*const getUsers =
-equireedit('routes/helpers/user_login')  addItem = require('/routes/addItem'); app.use(cookieSession({
-    name: 'session',
-    keys: ['someValue'],
-  }));
-*/
+equireedit('routes/helpers/user_login')  addItem = require('/routes/addItem');*/
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['someValue'],
+}));
+
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -78,7 +80,9 @@ a*/
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
-  res.render("index");
+  console.log(req.session.userId);
+  const data = { userId: req.session.userId };
+  res.render("index", data);
 });
 
 app.listen(PORT, () => {
