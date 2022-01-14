@@ -8,8 +8,8 @@
 const express = require('express');
 const router  = express.Router();
 const bcrypt = require('bcrypt');
-const addUser = require('.helpers/user_register');
-const updateUser = require('.helpers/user_update');
+const addUser = require('./helpers/user_register');
+const updateUser = require('./helpers/user_update');
 
 module.exports = (db) => {
 

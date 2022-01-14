@@ -15,7 +15,7 @@ const checkDuckDuckGoAPI = async (taskString) => {
 };
 
 
-checkDuckDuckGoAPI(process.argv[2]);
+// checkDuckDuckGoAPI(process.argv[2]);
 
 
 module.exports = { checkDuckDuckGoAPI }

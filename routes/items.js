@@ -44,7 +44,7 @@ module.exports = (db) => {
       });
   });
 
-  router.get('/:id/watch', (req, res) => {
+  router.get('/watch', (req, res) => {
 
     const userId = req.session.id;
     getWatchList(userId, db)
@@ -53,7 +53,7 @@ module.exports = (db) => {
       .catch(error => res.send('Error:', error));
   });
 
-  router.get('/:id/eat', (req, res) => {
+  router.get('/eat', (req, res) => {
 
     const userId = req.session.id;
     getEatList(userId, db)
@@ -62,7 +62,7 @@ module.exports = (db) => {
       .catch(error => res.send('Error:', error));
   });
 
-  router.get('/:id/read', (req, res) => {
+  router.get('/read', (req, res) => {
 
     const userId = req.session.id;
     getReadList(userId, db)
@@ -71,7 +71,7 @@ module.exports = (db) => {
       .catch(error => res.send('Error:', error));
   });
 
-  router.get('/:id/buy', (req, res) => {
+  router.get('/buy', (req, res) => {
 
     const userId = req.session.id;
     getBuyList(userId, db)
@@ -81,7 +81,7 @@ module.exports = (db) => {
   });
 
   //GET - to see a user's completed tasks
-  router.get(':id/done', (req, res) => {
+  router.get('/done', (req, res) => {
     const userId = req.session.id;
     getDoneList(userId, db)
       .then(data =>
@@ -90,7 +90,7 @@ module.exports = (db) => {
   });
 
   //POST - add new tasks, with this involving the use of categoryDecide
-  router.post("/:id/addtask", (req, res) => {
+  router.post("/addtask", (req, res) => {
     const userId = req.session.userId;
     const userEntry = req.body;
     let category = categoryDecide(userEntry);
@@ -104,7 +104,7 @@ module.exports = (db) => {
   });
 
   //PUT - update task's category
-  router.put('/:id/update', (req, res) => {
+  router.put('/:taskID', (req, res) => {
     const userId = req.session.userId;
     const itemId = req.params.itemId;
     let selectedCategory = req.body;
@@ -120,7 +120,7 @@ module.exports = (db) => {
   //PUT - archive a completed task
   router.put('/:id/done', (req, res) => {
     const userId = req.session.userId;
-    const itemId = req.params.itemId;
+    const itemId = req.params.taskID;
     completeItem(userId, itemId, db)
       .then(item => {
         res.send(item);
@@ -131,9 +131,9 @@ module.exports = (db) => {
   });
 
   //delete - delete task
-  router.delete('/:id', (req, res) => {
+  router.delete('/:taskID', (req, res) => {
     const userId = req.session.userId;
-    const itemId = req.params.itemId;
+    const itemId = req.params.taskID;
     deleteItem(userId, itemId, db)
       .then(item => {
         res.send(item);
@@ -146,23 +146,3 @@ module.exports = (db) => {
   return router;
 };
 
-/*
-module.exports = (db) => {
-
-  router.get("/", (req, res) => {
-    let query = `SELECT * FROM widgets`;
-    console.log(query);
-    db.query(query)
-      .then(data => {
-        const widgets = data.rows;
-        res.json({ widgets });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
-  return router;
-};
-*/

@@ -43,6 +43,6 @@ const categorize = function (input) {
   return category;
 };
 
-categorize(process.argv[2]);
+// categorize(process.argv[2]);
 
 module.exports = { categorize };
