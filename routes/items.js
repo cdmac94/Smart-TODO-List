@@ -36,7 +36,8 @@ module.exports = (db) => {
       .then(data => {
         const items = data.rows;
         res.json({ items });
-      })
+        res.render('index')
+            })
       .catch(err => {
         res
           .status(500)
@@ -44,41 +45,41 @@ module.exports = (db) => {
       });
   });
 
-  router.get('/watch', (req, res) => {
+  // router.get('/watch', (req, res) => {
 
-    const userId = req.session.id;
-    getWatchList(userId, db)
-      .then(data =>
-        res.send(data))
-      .catch(error => res.send('Error:', error));
-  });
+  //   const userId = req.session.id;
+  //   getWatchList(userId, db)
+  //     .then(data =>
+  //       res.send(data))
+  //     .catch(error => res.send('Error:', error));
+  // });
 
-  router.get('/eat', (req, res) => {
+  // router.get('/eat', (req, res) => {
 
-    const userId = req.session.id;
-    getEatList(userId, db)
-      .then(data =>
-        res.send(data))
-      .catch(error => res.send('Error:', error));
-  });
+  //   const userId = req.session.id;
+  //   getEatList(userId, db)
+  //     .then(data =>
+  //       res.send(data))
+  //     .catch(error => res.send('Error:', error));
+  // });
 
-  router.get('/read', (req, res) => {
+  // router.get('/read', (req, res) => {
 
-    const userId = req.session.id;
-    getReadList(userId, db)
-      .then(data =>
-        res.send(data))
-      .catch(error => res.send('Error:', error));
-  });
+  //   const userId = req.session.id;
+  //   getReadList(userId, db)
+  //     .then(data =>
+  //       res.send(data))
+  //     .catch(error => res.send('Error:', error));
+  // });
 
-  router.get('/buy', (req, res) => {
+  // router.get('/buy', (req, res) => {
 
-    const userId = req.session.id;
-    getBuyList(userId, db)
-      .then(data =>
-        res.send(data))
-      .catch(error => res.send('Error:', error));
-  });
+  //   const userId = req.session.id;
+  //   getBuyList(userId, db)
+  //     .then(data =>
+  //       res.send(data))
+  //     .catch(error => res.send('Error:', error));
+  // });
 
   //GET - to see a user's completed tasks
   router.get('/done', (req, res) => {
@@ -89,19 +90,29 @@ module.exports = (db) => {
       .catch(error => res.send('Error:', error));
   });
 
+
+
+  //GET - form for adding new task
+  router.get("/addtask", (req, res) => {
+    //add story after logged in
+    res.render("new_task");
+  });
+
   //POST - add new tasks, with this involving the use of categoryDecide
+  //ask mentor about this:
   router.post("/addtask", (req, res) => {
     const userId = req.session.userId;
     const userEntry = req.body;
     let category = categoryDecide(userEntry);
     addItem(userId, category, userEntry, db)
-      .then(item => {
-        res.send(item);
+      .then(response => {
+        res.redirect('/');
       })
       .catch(error => {
         res.send(error);
       });
   });
+
 
   //PUT - update task's category
   router.put('/:taskID', (req, res) => {
@@ -145,3 +156,4 @@ module.exports = (db) => {
 
   return router;
 };
+

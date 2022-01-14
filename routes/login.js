@@ -12,15 +12,7 @@ const userLogin = require('./helpers/user_login');
 module.exports = (db) => {
   // GET /login
   router.get('/', (req, res) => {
-    res.redirect('/');
-  });
-
-  //use info filled within the form to perfor the login function for the specified user
-
-  //Get/login/:id
-  router.get('/:id', (req, res) => {
-    req.session.userId = req.params.id;
-    res.redirect('/');
+    res.render('login');
   });
 
   //use info filled within the form to perform the login function for the specified user
@@ -37,7 +29,6 @@ module.exports = (db) => {
         res.send({ id: user.id, name: user.name, email: user.email });
       })
       .catch(error => res.send(error));
-
   });
 
   return router;
